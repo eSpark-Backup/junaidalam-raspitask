@@ -19,6 +19,7 @@ image_array = []
 text_array = []
 increment_counter = 0
 a=40
+flag = 0
 
 def work():
     while True:
@@ -26,36 +27,41 @@ def work():
         Button_B = GPIO.input(PIN2)
 
         if (Button_A == 1):
-            start = time.time()
-            while True:
-                time.sleep(0.02)
-                if Button_A == 0:
-                    time.sleep(0.01)
-                    length = time.time() - start
-                    if length > 2:
-                        Adding()
-                        break
-                    else:
-                        global increment_counter, a
-                        string_value = Keypad_Input.get()
-                        if not string_value:
-                            string_value = '0'
-                        button_text.append(string_value)
-                        img_2=  ImageTk.PhotoImage(Image.open("label_button.png").resize((160,100)))
-                        Button_Image.append(img_2)
-                        image_array.append(canvas.create_image(100,a,image = Button_Image[increment_counter]))
-                        canvas.tag_bind(image_array[increment_counter]) 
-                        text_array.append(canvas.create_text(100,a, text="R " + button_text[increment_counter],font="lucida 20 bold",fill="white"))
-                        a = a + 80
-                        increment_counter += 1
-                        Keypad_Input.set("")
-                        screen.update()
-                        break
-                Button_A = GPIO.input(PIN1)
+            global flag,i,a
+            global wallet,wallet_text
+            if (Button_A == 1 and flag == 0 ):
+                wallet = int(Keypad_Input.get())
+                wallet_image=  ImageTk.PhotoImage(Image.open("wallet.png").resize((576,433)))
+                bttn_1 = canvas.create_image(1150, 110, image = wallet_image)
+                canvas.tag_bind(bttn_1) 
+                wallet_text = canvas.create_text(1175,90, text="",font="lucida 30 bold",fill="white")
+                canvas.itemconfigure(wallet_text, text = "R " + str(wallet))
+                canvas.itemconfigure(Sum_button_text, text = "R " + str(wallet))
+                flag = 1
+                Keypad_Input.set("")
+                screen.update()
+
+            else:
+                global increment_counter, a
+                string_value = Keypad_Input.get()
+                if not string_value:
+                    string_value = '0'
+                button_text.append(string_value)
+                img_2=  ImageTk.PhotoImage(Image.open("label_button.png").resize((160,100)))
+                Button_Image.append(img_2)
+                image_array.append(canvas.create_image(100,a,image = Button_Image[increment_counter]))
+                canvas.tag_bind(image_array[increment_counter]) 
+                text_array.append(canvas.create_text(100,a, text="R " + button_text[increment_counter],font="lucida 20 bold",fill="white"))
+                a = a + 80
+                increment_counter += 1
+                Keypad_Input.set("")
+                screen.update()
+                break
+            Button_A = GPIO.input(PIN1)
 
         # if GPIO.input(PIN2):
     
-        elif (Button_B == 1):
+        elif(Button_B == 1):
             Clearing()
 
 
@@ -66,15 +72,18 @@ def threading():
 # Function to handle button clicks
 def click(event):
     text = event.widget.cget("text")
-    Keypad_Input.set(Keypad_Input.get() + text)
-    screen.update()
-
-def Adding():    
-    total_Sum = sum(int(value) for value in button_text)
-    canvas.itemconfigure(Sum_button_text, text = "R " + str(total_Sum))
-        
+    if text == "Clear":
+        Keypad_Input.set("")
+    elif text == "Back":
+        Back_space = Keypad_Input.get()
+        Keypad_Input.set(Back_space[:-1])
+        screen.update()
+    else:
+      Keypad_Input.set(Keypad_Input.get() + text)
+      screen.update()
+      
 def Clearing():
-    global increment_counter, image_array,text_array, a
+    global increment_counter, image_array, text_array, a, i
     button_text.clear()
     for x in range(len(image_array)):
         canvas.delete(image_array[x])
@@ -82,7 +91,9 @@ def Clearing():
     image_array = []
     text_array=[]
     canvas.itemconfigure(Sum_button_text, text ="")
+    canvas.itemconfigure(wallet_text, text = "")
     increment_counter = 0
+    i = 0
     a = 40
 
 
@@ -108,7 +119,7 @@ screen.pack(fill="x", ipadx=20, padx=10, pady=10)
 
 # Create number buttons in Keypad_Column
 Keypad_Columns = []
-button_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+button_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "Clear", "0", "Back"]
 
 Keypad_Button = []
 Button_Image = []
@@ -123,7 +134,7 @@ for j in range(4):
     img=image.resize((150, 150))
     for k in range(3):
         index = 3 * j + k
-        if index < 10:
+        if index < 12:
             Keypad_Button.append(ImageTk.PhotoImage(img))
             roundedbutton = tk.Button(frame,image=Keypad_Button[index],text=button_labels[index], font="lucida 28 bold",compound='center', fg="white")
             roundedbutton.pack(side=LEFT,fill="y")
