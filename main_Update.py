@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 import time
 from PIL import Image, ImageTk
-import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO                               # when using without Raspberry pi comment this line
 from threading import*
 import pygame
 import os
@@ -11,10 +11,10 @@ PIN1 = 11
 PIN2 = 13
 
 
-GPIO.setwarnings(False) 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(PIN1,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(PIN2,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
+GPIO.setwarnings(False)                                # when using without Raspberry pi comment this line
+GPIO.setmode(GPIO.BOARD)                               # when using without Raspberry pi comment this line
+GPIO.setup(PIN1,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)    # when using without Raspberry pi comment this line
+GPIO.setup(PIN2,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)    # when using without Raspberry pi comment this line
 
 # Global variables
 button_text = []
@@ -27,15 +27,17 @@ flag = 0
 def work():
     while True:
 
-        Button_A = GPIO.input(PIN1)
-        Button_B = GPIO.input(PIN2)
-        # Button_A = input()
-        if (Button_A == 1):
+        Button_A = GPIO.input(PIN1)                   # when using without Raspberry pi comment this line
+        Button_B = GPIO.input(PIN2)                   # when using without Raspberry pi comment this line
+        # Button_A = input()                           # when using without Raspberry pi  remove the comment of this line    
+        if (Button_A == 1):                           # when using without Raspberry pi comment this line
+        # if (Button_A == "a"):                        # when using without Raspberry pi  remove the comment of this line   
             global flag,i,a,increment_counter
             global wallet,wallet_text
             while True:
-                if (Button_A == 1 and flag == 0 ):
-                    wallet = Keypad_Input.get()
+                if (Button_A == 1 and flag == 0 ):    # when using without Raspberry pi comment this line
+                # if (Button_A == "a" and flag == 0 ): # when using without Raspberry pi  remove the comment of this line    
+                    wallet = Keypad_Input.get()       
                     if not wallet:
                         wallet = "0"
                     wallet_image=  ImageTk.PhotoImage(Image.open(image_path +"/wallet.png")).resize((350,250))
@@ -50,8 +52,9 @@ def work():
                     time.sleep(1)
                     break
 
-                elif (Button_A == 1 and flag!= 0):
-                    # global increment_counter, a
+                elif (Button_A == 1 and flag!= 0):              # when using without Raspberry pi comment this line
+                # elif (Button_A == "a" and flag!= 0):          # when using without Raspberry pi  remove the comment of this line 
+                    
                     string_value = Keypad_Input.get()
                     if not string_value:
                         string_value = '0'
@@ -73,8 +76,8 @@ def work():
 
         # if GPIO.input(PIN2):
     
-        elif(Button_B == 1):
-        # elif(Button_A == "b"):
+        elif(Button_B == 1):                              # when using without Raspberry pi comment this line
+        # elif(Button_A == "b"):                          # when using without Raspberry pi  remove the comment of this line 
             Clearing()
 def play():
     pygame.init()
