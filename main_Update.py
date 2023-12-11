@@ -4,9 +4,8 @@ import time
 from PIL import Image, ImageTk
 import RPi.GPIO as GPIO
 from threading import*
-
-from threading import*
 import pygame
+import os
 
 PIN1 = 11
 PIN2 = 13
@@ -39,7 +38,7 @@ def work():
                     wallet = Keypad_Input.get()
                     if not wallet:
                         wallet = "0"
-                    wallet_image=  ImageTk.PhotoImage(Image.open("wallet.png").resize((350,250)))
+                    wallet_image=  ImageTk.PhotoImage(Image.open(image_path +"/wallet.png")).resize((350,250))
                     bttn_1 = canvas.create_image(550, 100, image = wallet_image)
                     canvas.tag_bind(bttn_1) 
                     wallet_text = canvas.create_text(580,90, text="",font="lucida 20 bold",fill="white")
@@ -57,7 +56,7 @@ def work():
                     if not string_value:
                         string_value = '0'
                     button_text.append(string_value)
-                    img_2=  ImageTk.PhotoImage(Image.open("label_button.png").resize((160,100)))
+                    img_2=  ImageTk.PhotoImage(Image.open(image_path + "/label_button.png")).resize((160,100))
                     Button_Image.append(img_2)
                     image_array.append(canvas.create_image(190,a,image = Button_Image[increment_counter]))
                     canvas.tag_bind(image_array[increment_counter]) 
@@ -147,15 +146,14 @@ screen.pack(fill="x", ipadx=20, padx=10, pady=10)
 # Create number buttons in Keypad_Column
 Keypad_Columns = []
 button_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "Clear", "0", "Back"]
-
+image_path = os.path.dirname(os.path.realpath(__file__))
 Keypad_Button = []
 Button_Image = []
 for j in range(4):
     frame = Frame(Window_1, bg="black")
     Keypad_Columns.append(frame)
     frame.pack()
-    
-    image=Image.open("button.png")
+    image=Image.open(image_path + "/button.png")
 
 # Resize the image in the given (width, height)
     img=image.resize((150, 150))
@@ -177,16 +175,16 @@ for j in range(4):
 Window_2 = Toplevel()
 Window_2.geometry(f"{w1}x{h1}+{w0}+0")
 # In the canva section of Window_2
-Background_image = ImageTk.PhotoImage(Image.open("party.png").resize((1366,768)))
-border_image = ImageTk.PhotoImage(Image.open("peakpx.png").resize((410,768)))
-border_image_2 = ImageTk.PhotoImage(Image.open("2.png").resize((1150,768)))
+Background_image = ImageTk.PhotoImage(Image.open(image_path + "/party.png")).resize((1366,768))
+border_image = ImageTk.PhotoImage(Image.open(image_path + "/peakpx.png")).resize((410,768))
+border_image_2 = ImageTk.PhotoImage(Image.open(image_path + "/2.png")).resize((1150,768))
 canvas = Canvas(Window_2,width=w1 , height= h1)
 canvas.pack(anchor="nw")
 #Add the image in the canvas
 canvas.create_image(0,0,image=Background_image, anchor="nw")
 canvas.create_image(350,0,image=border_image_2, anchor="nw")
 canvas.create_image(-40,0,image=border_image, anchor="nw")
-img_1=  ImageTk.PhotoImage(Image.open("sum.png").resize((400,120)))
+img_1=  ImageTk.PhotoImage(Image.open(image_path +"/sum.png")).resize((400,120))
 Sum_Button_Image = canvas.create_image(880, 384, image = img_1)
 canvas.tag_bind(Sum_Button_Image) 
 Sum_button_text = canvas.create_text(880,384, text="",font="lucida 40 bold",fill="black")
