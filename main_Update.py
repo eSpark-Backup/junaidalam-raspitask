@@ -79,7 +79,7 @@ def work():
             Clearing()
 def play():
     pygame.init()
-    pygame.mixer.music.load('buuz_sound.mp3')
+    pygame.mixer.music.load('buzz.mp3')
     pygame.mixer.music.play()
 # Add a delay to allow the sound to play before the program exits
     pygame.time.delay(5000)
