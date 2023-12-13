@@ -34,6 +34,7 @@ def work():
             # if (Button_A == "a"):                        # when using without Raspberry pi  remove the comment of this line
             global flag, i, a, increment_counter
             global wallet, wallet_text
+            Buzz_play()
             while True:
                 if (Button_A == 1 and flag == 0):  # when using without Raspberry pi comment this line
                     # if (Button_A == "a" and flag == 0 ): # when using without Raspberry pi  remove the comment of this line
