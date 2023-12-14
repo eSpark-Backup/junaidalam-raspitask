@@ -24,6 +24,7 @@ a = 80
 flag = 0
 
 
+
 def work():
     while True:
 
