@@ -1,136 +1,152 @@
 from tkinter import *
-import tkinter as tk
 import time
 from PIL import Image, ImageTk
-import RPi.GPIO as GPIO  # when using without Raspberry pi comment this line
-from threading import *
+import RPi.GPIO as GPIO
+from threading import*
 import pygame
 import os
+import tkinter.font as tkfont
 
-PIN1 = 11
-PIN2 = 13
+# pyglet.font.add_file('SuperSport-Bold.ttf')
+PIN1 = 11 #button A
+PIN2 = 13 #button_B
 
-GPIO.setwarnings(False)  # when using without Raspberry pi comment this line
-GPIO.setmode(GPIO.BOARD)  # when using without Raspberry pi comment this line
-GPIO.setup(PIN1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # when using without Raspberry pi comment this line
-GPIO.setup(PIN2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # when using without Raspberry pi comment this line
+GPIO.setwarnings(False) 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(PIN1,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(PIN2,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
 
 # Global variables
 button_text = []
 image_array = []
 text_array = []
 increment_counter = 0
-a = 80
-flag = 0
 
+# a=260
+flag = 0
+w0, h0 = 800, 480
+w1, h1 = 1366, 768
+# w0, h0 = 1280, 720
+# w1, h1 = 1920, 1080
+
+inputsHeight_align = int((h1*24/100))
+a = inputsHeight_align
 
 def work():
     while True:
 
-        Button_A = GPIO.input(PIN1)  # when using without Raspberry pi comment this line
-        Button_B = GPIO.input(PIN2)  # when using without Raspberry pi comment this line
-        # Button_A = input()                           # when using without Raspberry pi  remove the comment of this line    
-        if (Button_A == 1):  # when using without Raspberry pi comment this line
-            # if (Button_A == "a"):                        # when using without Raspberry pi  remove the comment of this line
-            global flag, i, a, increment_counter
-            global wallet, wallet_text
+        Button_A = GPIO.input(PIN1)
+        Button_B = GPIO.input(PIN2)
+        # Button_A = input()
+        if (Button_A == 1):
+        # if (Button_A == "a"):
+            global flag,i,a,increment_counter
+            global wallet,wallet_text
+            Buzz_play()
             while True:
-                if (Button_A == 1 and flag == 0):  # when using without Raspberry pi comment this line
-                    # if (Button_A == "a" and flag == 0 ): # when using without Raspberry pi  remove the comment of this line
+                if (Button_A == 1 and flag == 0 ):
                     wallet = Keypad_Input.get()
                     if not wallet:
+                        
                         wallet = "0"
-                    wallet_image = ImageTk.PhotoImage(Image.open(image_path + "/wallet.png").resize((350, 250)))
-                    bttn_1 = canvas.create_image(550, 100, image=wallet_image)
-                    canvas.tag_bind(bttn_1)
-                    wallet_text = canvas.create_text(580, 90, text="", font="lucida 20 bold", fill="white")
-                    canvas.itemconfigure(wallet_text, text="R " + str(wallet))
-                    canvas.itemconfigure(Sum_button_text, text="R " + str(wallet))
+                    walWidht_size = int((w1*13/100))
+                    walHeight_size = int((h1*9/100))
+                
+                    wallet_image=  ImageTk.PhotoImage(Image.open(image_path +"/wallet_button.png").resize((walWidht_size,walHeight_size)))
+                   
+                    walWidth_align = int((w1*37/100))
+                    walheight_align= int((h1*14/100))
+                    walTextExtra_align= int ((w1*0.5/100))
+                    bttn_1 = canvas.create_image(walWidth_align, walheight_align, image = wallet_image)
+                    canvas.tag_bind(bttn_1) 
+                    textFontWallet =int((w1*1.5/100))
+                    font_2 = tkfont.Font( family="SuperSport Extra Black", size = textFontWallet)
+                    wallet_text = canvas.create_text(walWidth_align + walTextExtra_align, walheight_align, text="",font=font_2,fill="white")
+                    canvas.itemconfigure(wallet_text, text = "R" + str(wallet))
+                    canvas.itemconfigure(Sum_button_text, text = "R" + str(wallet))
                     flag = 1
                     Keypad_Input.set("")
-                    screen.update()
+                    canvas_1.itemconfigure(screen, text = Keypad_Input.get())
                     time.sleep(1)
                     break
 
-                elif (Button_A == 1 and flag != 0):  # when using without Raspberry pi comment this line
-                    # elif (Button_A == "a" and flag!= 0):          # when using without Raspberry pi  remove the comment of this line
-
+                elif (Button_A == 1 and flag!= 0):
+                # elif (Button_A == "a" and flag!= 0):
                     string_value = Keypad_Input.get()
                     if not string_value:
                         string_value = '0'
                     button_text.append(string_value)
-                    img_2 = ImageTk.PhotoImage(Image.open(image_path + "/label_button.png").resize((160, 100)))
-                    Button_Image.append(img_2)
-                    image_array.append(canvas.create_image(190, a, image=Button_Image[increment_counter]))
-                    canvas.tag_bind(image_array[increment_counter])
-                    text_array.append(
-                        canvas.create_text(190, a, text="R " + button_text[increment_counter], font="lucida 20 bold",
-                                           fill="white"))
-                    a = a + 80
+
+                    InputWeidthText_align = int(w1*16/100)
+                    inputs_textFont = int((w1*2.34/100))
+                    font_3 = tkfont.Font( family="SuperSport HD", size = inputs_textFont)
+                    text_array.append(canvas.create_text(InputWeidthText_align, a, text="R" + button_text[increment_counter], font=font_3 ,fill="white"))
+                    Diffence_of_inputs_height = int((h1*17.129/100))
+                    # a = a + 185
+                    a = a + Diffence_of_inputs_height
                     wallet = int(wallet) - int(button_text[increment_counter])
-                    canvas.itemconfigure(Sum_button_text, text="R " + str(wallet))
+                    canvas.itemconfigure(Sum_button_text, text = "R" + str(wallet))
                     increment_counter += 1
                     Keypad_Input.set("")
-                    screen.update()
+                    canvas_1.itemconfigure(screen, text = Keypad_Input.get())
                     time.sleep(1)
                     break
-
+           
 
         # if GPIO.input(PIN2):
-
-        elif (Button_B == 1):  # when using without Raspberry pi comment this line
-            # elif(Button_A == "b"):                          # when using without Raspberry pi  remove the comment of this line
+    
+        elif(Button_B == 1):
+        # elif(Button_A == "b"):
             Clearing()
-
-
 def play():
     pygame.init()
     pygame.mixer.music.load('buzz.mp3')
     pygame.mixer.music.play()
-    # Add a delay to allow the sound to play before the program exits
+# Add a delay to allow the sound to play before the program exits
     pygame.time.delay(5000)
-    # playsound("buuz_sound.mp3")
-
-
 def Buzz_play():
-    t2 = Thread(target=play)
+    t2=Thread(target=play)
     t2.start()
 
 
 def threading():
-    t1 = Thread(target=work)
+    t1=Thread(target=work)
     t1.start()
-
 
 # Function to handle button clicks
 def click(event):
     text = event.widget.cget("text")
     if text == "Clear":
         Keypad_Input.set("")
-    elif text == "Back":
+        canvas_1.itemconfigure(screen, text ="")
+    #  for backspace button
+    elif text == ".":
         Back_space = Keypad_Input.get()
         Keypad_Input.set(Back_space[:-1])
-        screen.update()
+        canvas_1.itemconfigure(screen, text ="R"+(Back_space[:-1]))
+
     else:
-        Keypad_Input.set(Keypad_Input.get() + text)
-        screen.update()
+        keypad_Numbers = (Keypad_Input.get() + text)
+        Keypad_Input.set(keypad_Numbers)
+        canvas_1.itemconfigure(screen, text ="R"+ keypad_Numbers)
 
-
+        
 def Clearing():
-    global increment_counter, image_array, text_array, a, i, wallet, flag
-    button_text.clear()
-    for x in range(len(image_array)):
-        canvas.delete(image_array[x])
+    global increment_counter, image_array,text_array, a, i,wallet,flag,button_text
+    for x in range(len(button_text)):
+        canvas.delete(button_text[x])
         canvas.delete(text_array[x])
-    image_array = []
-    text_array = []
-    canvas.itemconfigure(Sum_button_text, text="")
-    canvas.itemconfigure(wallet_text, text="")
+    
+    text_array=[]
+    button_text =[]
+    canvas.itemconfigure(Sum_button_text, text ="")
+    canvas.itemconfigure(wallet_text, text = "")
+    canvas.itemconfigure(button_text, text = "")
     increment_counter = 0
     i = 0
     flag = 0
-    wallet = 0
-    a = 80
+    wallet= 0
+    a = inputsHeight_align
 
 
 ####### GUI OF 1st Screen ##############
@@ -139,66 +155,138 @@ def Clearing():
 
 root = Tk()
 
-# Set resolutions of windows
-w0, h0 = 500, 700
-w1, h1 = 1366, 768
+# Set up window for display on HDMI 1
+Window_1 = Toplevel()
+Window_1.geometry(f"{w0}x{h0}+{w1}+0")
+Window_1.title("Raspberry Pi GUI")
+Window_1.attributes('-fullscreen',True)
+Window_1.overrideredirect(1)
 
 # Set up window for display on HDMI 0
-Window_1 = Toplevel()
-Window_1.geometry(f"{w0}x{h0}+0+0")
-Window_1.title("Raspberry Pi GUI")
+Window_2 = Toplevel()
+Window_2.geometry(f"{w1}x{h1}+0+0")
+Window_2.attributes('-fullscreen',True)
+Window_2.overrideredirect(0)
 
 Keypad_Input = StringVar()
 Keypad_Input.set("")
-screen = Entry(Window_1, textvar=Keypad_Input, font="lucida 40 bold")
-screen.pack(fill="x", ipadx=20, padx=10, pady=10)
-
-# Create number buttons in Keypad_Column
-Keypad_Columns = []
-button_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "Clear", "0", "Back"]
 image_path = os.path.dirname(os.path.realpath(__file__))
-Keypad_Button = []
-Button_Image = []
-for j in range(4):
-    frame = Frame(Window_1, bg="black")
-    Keypad_Columns.append(frame)
-    frame.pack()
-    image = Image.open(image_path + "/button.png")
+canvas_1 = Canvas(Window_1,width=w0 , height= h0)
+canvas_1.pack(anchor="nw")
+calculator_Background_image = ImageTk.PhotoImage(Image.open(image_path + "/calculator_fram.jpg").resize((w0,h0)))
+canvas_1.create_image(0,0,image=calculator_Background_image, anchor="nw")
+calScreen_width = int((w0*50/100))
+calScreen_height= int((h0*22/100))
 
-    # Resize the image in the given (width, height)
-    img = image.resize((150, 150))
-    for k in range(3):
-        index = 3 * j + k
-        if index < 12:
-            Keypad_Button.append(ImageTk.PhotoImage(img))
-            roundedbutton = tk.Button(frame, image=Keypad_Button[index], text=button_labels[index],
-                                      font="lucida 28 bold", compound='center', fg="white")
-            roundedbutton.pack(side=LEFT, fill="y")
-            roundedbutton.bind("<Button-1>", click)
+Screen_text_size = int((w0*3/100))
+font_4 = tkfont.Font( family="SuperSport Extra Black", size = Screen_text_size)
+screen = canvas_1.create_text(calScreen_width, calScreen_height, text="", font = font_4 ,fill="white",state="normal")
 
-# for i in range(4):
-#     Window_1.grid_rowconfigure(i, weight=0)
-#     Window_1.grid_columnconfigure(i, weight=0)
+# resize image automatically
+calWidth_align = int((w0*11/100))
+calheight_align = int((h0*13/100))
+
+
+click_btn= ImageTk.PhotoImage(Image.open(image_path + "/blue_button.png").resize((calWidth_align, calheight_align)))
+# bg="#121FA2"
+
+#button alignments automatically according to screen resolution
+calX_1_align = int((w0*33/100))
+calX_2_align = int((w0*44/100))
+calX_3_align = int((w0*55/100))
+calY_1_align = int((h0*30/100))
+calY_2_align = int((h0*44/100))
+calY_3_align = int((h0*58/100))
+calY_4_align = int((h0*71/100))
+
+cal_font_size = int((w0*3.375/100))
+
+font_5 = tkfont.Font(family="SuperSport Extra Black", size = cal_font_size)
+
+# button_1
+btn = Button(canvas_1,image = click_btn, text='1', relief="flat" ,borderwidth= 0, font=font_5, fg="black", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn.place(x=calX_1_align, y=calY_1_align)
+btn.bind("<Button-1>", click)
+#button_2
+btn = Button(canvas_1,image = click_btn, text='2', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+# btn.place(x=570, y=215)
+btn.place(x=calX_2_align, y=calY_1_align)
+btn.bind("<Button-1>", click)
+#button_3
+btn = Button(canvas_1,image = click_btn, text='3', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+# btn.place(x=710, y=215)
+btn.place(x=calX_3_align, y=calY_1_align)
+btn.bind("<Button-1>", click)
+
+#button_4
+btn = Button(canvas_1,image = click_btn, text='4', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn.place(x=calX_1_align, y=calY_2_align)
+btn.bind("<Button-1>", click)
+
+#button_5
+btn = Button(canvas_1,image = click_btn, text='5', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn.place(x=calX_2_align, y=calY_2_align)
+btn.bind("<Button-1>", click)
+
+#button_6
+btn = Button(canvas_1,image = click_btn, text='6', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn.place(x=calX_3_align, y=calY_2_align)
+btn.bind("<Button-1>", click)
+
+#button_7
+btn = Button(canvas_1,image = click_btn, text='7', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn.place(x=calX_1_align, y=calY_3_align)
+btn.bind("<Button-1>", click)
+
+#button_8
+btn = Button(canvas_1,image = click_btn, text='8', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn.place(x=calX_2_align, y=calY_3_align)
+btn.bind("<Button-1>", click)
+
+#button_9
+btn = Button(canvas_1,image = click_btn, text='9', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn.place(x=calX_3_align, y=calY_3_align)
+btn.bind("<Button-1>", click)
+
+#button_clear
+clear_textFont = int((w0*1.7/100))
+font_6 = tkfont.Font( family="SuperSport Extra Black", size = clear_textFont)
+btn = Button(canvas_1,image = click_btn, text='Clear', relief="flat", borderwidth= 0, font=font_6, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn.place(x=calX_1_align, y=calY_4_align)
+btn.bind("<Button-1>", click)
+
+#button_0
+btn = Button(canvas_1,image = click_btn, text='0', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn.place(x=calX_2_align, y=calY_4_align)
+btn.bind("<Button-1>", click)
+
+#button_backspace
+calWidthImage_align = int((w0*9/100))
+calheightImage_align = int((h0*12.5/100))
+click_btn_1= ImageTk.PhotoImage(Image.open(image_path + "/backspace.png").resize((calWidthImage_align ,calheightImage_align)))
+btn = Button(canvas_1,image = click_btn_1, text='.', relief="flat", borderwidth= 0, font="lucida 7 bold", fg="#0C1B6E", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+calX_4_align = int(w0*56.5/100)
+calY_4_align_bacspace = int(h0*71.5/100)
+btn.place(x=calX_4_align, y=calY_4_align_bacspace)
+btn.bind("<Button-1>", click)
 
 ####### GUI OF 2nd Screen ##############
 
-# Set up window for display on HDMI 1
-Window_2 = Toplevel()
-Window_2.geometry(f"{w1}x{h1}+{w0}+0")
 # In the canva section of Window_2
-Background_image = ImageTk.PhotoImage(Image.open(image_path + "/party.png").resize((1366, 768)))
-border_image = ImageTk.PhotoImage(Image.open(image_path + "/peakpx.png").resize((410, 768)))
-border_image_2 = ImageTk.PhotoImage(Image.open(image_path + "/2.png").resize((1150, 768)))
-canvas = Canvas(Window_2, width=w1, height=h1)
+Background_image = ImageTk.PhotoImage(Image.open(image_path + "/new_display2.jpg").resize((w1,h1)))
+canvas = Canvas(Window_2,width=w1 , height= h1)
 canvas.pack(anchor="nw")
-# Add the image in the canvas
-canvas.create_image(0, 0, image=Background_image, anchor="nw")
-canvas.create_image(350, 0, image=border_image_2, anchor="nw")
-canvas.create_image(-40, 0, image=border_image, anchor="nw")
-img_1 = ImageTk.PhotoImage(Image.open(image_path + "/sum.png").resize((400, 120)))
-Sum_Button_Image = canvas.create_image(880, 384, image=img_1)
-canvas.tag_bind(Sum_Button_Image)
-Sum_button_text = canvas.create_text(880, 384, text="", font="lucida 40 bold", fill="black")
+
+# substracting text alignment
+sumTextwidht_align = int((w1*62/100))
+sumTextheight_align= int((h1*49/100))
+
+#substacting numbers
+canvas.create_image(0,0,image=Background_image, anchor="nw")
+# Sum_button_text = canvas.create_text(1200,530, text="",font="SuperSport 90 bold",fill="white")
+textFont = int((w1*7/100))
+font_1 = tkfont.Font( family="SuperSport HD", size = textFont)
+Sum_button_text = canvas.create_text(sumTextwidht_align, sumTextheight_align, text="", font=font_1, fill="white")
 
 threading()
 
