@@ -39,7 +39,7 @@ def work():
         Button_B = GPIO.input(PIN2)
         # Button_A = input()
         if (Button_A == 1):
-        # if (Button_A == "a"):
+        # if (Button_A == 1):
             global flag,i,a,increment_counter
             global wallet,wallet_text
             Buzz_play()
@@ -71,7 +71,7 @@ def work():
                     break
 
                 elif (Button_A == 1 and flag!= 0):
-                # elif (Button_A == "a" and flag!= 0):
+                # elif (Button_A == 1 and flag!= 0):
                     string_value = Keypad_Input.get()
                     if not string_value:
                         string_value = '0'
@@ -157,16 +157,16 @@ root = Tk()
 
 # Set up window for display on HDMI 1
 Window_1 = Toplevel()
-Window_1.geometry(f"{w0}x{h0}+{w1}+0")
+# Window_1.geometry(f"{w0}x{h0}+{w1}+0")
 Window_1.title("Raspberry Pi GUI")
-Window_1.attributes('-fullscreen',True)
-Window_1.overrideredirect(1)
+# Window_1.attributes('-fullscreen',True)
+# Window_1.overrideredirect(1)
 
 # Set up window for display on HDMI 0
 Window_2 = Toplevel()
-Window_2.geometry(f"{w1}x{h1}+0+0")
-Window_2.attributes('-fullscreen',True)
-Window_2.overrideredirect(0)
+# Window_2.geometry(f"{w1}x{h1}+0+0")
+# Window_2.attributes('-fullscreen',True)
+# Window_2.overrideredirect(1)
 
 Keypad_Input = StringVar()
 Keypad_Input.set("")
