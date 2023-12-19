@@ -1,11 +1,15 @@
 from tkinter import *
 import time
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk    # sudo apt-get install python3-pil.imagetk
+
 import RPi.GPIO as GPIO
 from threading import*
 import pygame
 import os
+from screeninfo import get_monitors
 import tkinter.font as tkfont
+
+
 
 # pyglet.font.add_file('SuperSport-Bold.ttf')
 PIN1 = 11 #button A
@@ -21,20 +25,27 @@ button_text = []
 image_array = []
 text_array = []
 increment_counter = 0
-
 # a=260
 flag = 0
-w0, h0 = 800, 480
-w1, h1 = 1366, 768
+# # w0, h0 = 800, 480
+# # w1, h1 = 1366, 768
 # w0, h0 = 1280, 720
 # w1, h1 = 1920, 1080
+
+# Automatically detect screen size
+
+monitors = get_monitors()
+
+w1 = monitors[0].width
+h1 = monitors[0].height
+w0 = monitors[1].width
+h0 = monitors[1].height
 
 inputsHeight_align = int((h1*24/100))
 a = inputsHeight_align
 
 def work():
     while True:
-
         Button_A = GPIO.input(PIN1)
         Button_B = GPIO.input(PIN2)
         # Button_A = input()
@@ -47,21 +58,19 @@ def work():
                 if (Button_A == 1 and flag == 0 ):
                     wallet = Keypad_Input.get()
                     if not wallet:
-                        
                         wallet = "0"
                     walWidht_size = int((w1*13/100))
                     walHeight_size = int((h1*9/100))
                 
-                    wallet_image=  ImageTk.PhotoImage(Image.open(image_path +"/wallet_button.png").resize((walWidht_size,walHeight_size)))
-                   
+                    wallet_image =  ImageTk.PhotoImage(Image.open(image_path +"/wallet_button.png").resize((walWidht_size,walHeight_size)))
                     walWidth_align = int((w1*37/100))
                     walheight_align= int((h1*14/100))
                     walTextExtra_align= int ((w1*0.5/100))
                     bttn_1 = canvas.create_image(walWidth_align, walheight_align, image = wallet_image)
                     canvas.tag_bind(bttn_1) 
                     textFontWallet =int((w1*1.5/100))
-                    font_2 = tkfont.Font( family="SuperSport Extra Black", size = textFontWallet)
-                    wallet_text = canvas.create_text(walWidth_align + walTextExtra_align, walheight_align, text="",font=font_2,fill="white")
+                    font_2 = tkfont.Font(family="SuperSport Extra Black", size = textFontWallet)
+                    wallet_text = canvas.create_text(walWidth_align + walTextExtra_align, walheight_align, text=" " ,font=font_2,fill="white")
                     canvas.itemconfigure(wallet_text, text = "R" + str(wallet))
                     canvas.itemconfigure(Sum_button_text, text = "R" + str(wallet))
                     flag = 1
@@ -139,7 +148,7 @@ def Clearing():
     
     text_array=[]
     button_text =[]
-    canvas.itemconfigure(Sum_button_text, text ="")
+    canvas.itemconfigure(Sum_button_text, text = "")
     canvas.itemconfigure(wallet_text, text = "")
     canvas.itemconfigure(button_text, text = "")
     increment_counter = 0
@@ -152,6 +161,7 @@ def Clearing():
 ####### GUI OF 1st Screen ##############
 # Set up window for display on HDMI 0
 # Tkinter setup
+
 
 root = Tk()
 
@@ -173,7 +183,7 @@ Keypad_Input.set("")
 image_path = os.path.dirname(os.path.realpath(__file__))
 canvas_1 = Canvas(Window_1,width=w0 , height= h0)
 canvas_1.pack(anchor="nw")
-calculator_Background_image = ImageTk.PhotoImage(Image.open(image_path + "/calculator_fram.jpg").resize((w0,h0)))
+calculator_Background_image = ImageTk.PhotoImage(Image.open(image_path + "/cal_screen.jpg").resize((w0,h0)))
 canvas_1.create_image(0,0,image=calculator_Background_image, anchor="nw")
 calScreen_width = int((w0*50/100))
 calScreen_height= int((h0*22/100))
@@ -183,8 +193,8 @@ font_4 = tkfont.Font( family="SuperSport Extra Black", size = Screen_text_size)
 screen = canvas_1.create_text(calScreen_width, calScreen_height, text="", font = font_4 ,fill="white",state="normal")
 
 # resize image automatically
-calWidth_align = int((w0*11/100))
-calheight_align = int((h0*13/100))
+calWidth_align = int((w0*10/100))
+calheight_align = int((h0*12/100))
 
 
 click_btn= ImageTk.PhotoImage(Image.open(image_path + "/blue_button.png").resize((calWidth_align, calheight_align)))
@@ -202,61 +212,62 @@ calY_4_align = int((h0*71/100))
 cal_font_size = int((w0*3.375/100))
 
 font_5 = tkfont.Font(family="SuperSport Extra Black", size = cal_font_size)
-
+bg="#121FA2"
 # button_1
-btn = Button(canvas_1,image = click_btn, text='1', relief="flat" ,borderwidth= 0, font=font_5, fg="black", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='1', relief="flat", highlightthickness=0, borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn.place(x=calX_1_align, y=calY_1_align)
 btn.place(x=calX_1_align, y=calY_1_align)
 btn.bind("<Button-1>", click)
 #button_2
-btn = Button(canvas_1,image = click_btn, text='2', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='2', relief="flat", highlightthickness=0,  borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 # btn.place(x=570, y=215)
 btn.place(x=calX_2_align, y=calY_1_align)
 btn.bind("<Button-1>", click)
 #button_3
-btn = Button(canvas_1,image = click_btn, text='3', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='3', relief="flat", highlightthickness=0,  borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 # btn.place(x=710, y=215)
 btn.place(x=calX_3_align, y=calY_1_align)
 btn.bind("<Button-1>", click)
 
 #button_4
-btn = Button(canvas_1,image = click_btn, text='4', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='4', relief="flat", highlightthickness=0,  borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 btn.place(x=calX_1_align, y=calY_2_align)
 btn.bind("<Button-1>", click)
 
 #button_5
-btn = Button(canvas_1,image = click_btn, text='5', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='5', relief="flat", highlightthickness=0,  borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 btn.place(x=calX_2_align, y=calY_2_align)
 btn.bind("<Button-1>", click)
 
 #button_6
-btn = Button(canvas_1,image = click_btn, text='6', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='6', relief="flat", highlightthickness=0,  borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 btn.place(x=calX_3_align, y=calY_2_align)
 btn.bind("<Button-1>", click)
 
 #button_7
-btn = Button(canvas_1,image = click_btn, text='7', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='7', relief="flat", highlightthickness=0,  borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 btn.place(x=calX_1_align, y=calY_3_align)
 btn.bind("<Button-1>", click)
 
 #button_8
-btn = Button(canvas_1,image = click_btn, text='8', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='8', relief="flat", highlightthickness=0,  borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 btn.place(x=calX_2_align, y=calY_3_align)
 btn.bind("<Button-1>", click)
 
 #button_9
-btn = Button(canvas_1,image = click_btn, text='9', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='9', relief="flat", highlightthickness=0,  borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 btn.place(x=calX_3_align, y=calY_3_align)
 btn.bind("<Button-1>", click)
 
 #button_clear
 clear_textFont = int((w0*1.7/100))
 font_6 = tkfont.Font( family="SuperSport Extra Black", size = clear_textFont)
-btn = Button(canvas_1,image = click_btn, text='Clear', relief="flat", borderwidth= 0, font=font_6, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='Clear', relief="flat", highlightthickness=0,  borderwidth= 0, font=font_6, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 btn.place(x=calX_1_align, y=calY_4_align)
 btn.bind("<Button-1>", click)
 
 #button_0
-btn = Button(canvas_1,image = click_btn, text='0', relief="flat", borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='0', relief="flat", highlightthickness=0,  borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 btn.place(x=calX_2_align, y=calY_4_align)
 btn.bind("<Button-1>", click)
 
@@ -264,7 +275,7 @@ btn.bind("<Button-1>", click)
 calWidthImage_align = int((w0*9/100))
 calheightImage_align = int((h0*12.5/100))
 click_btn_1= ImageTk.PhotoImage(Image.open(image_path + "/backspace.png").resize((calWidthImage_align ,calheightImage_align)))
-btn = Button(canvas_1,image = click_btn_1, text='.', relief="flat", borderwidth= 0, font="lucida 7 bold", fg="#0C1B6E", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn_1, text='.', relief="flat", highlightthickness=0,  borderwidth= 0, font="lucida 7 bold", fg="#0C1B6E", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
 calX_4_align = int(w0*56.5/100)
 calY_4_align_bacspace = int(h0*71.5/100)
 btn.place(x=calX_4_align, y=calY_4_align_bacspace)
@@ -285,7 +296,7 @@ sumTextheight_align= int((h1*49/100))
 canvas.create_image(0,0,image=Background_image, anchor="nw")
 # Sum_button_text = canvas.create_text(1200,530, text="",font="SuperSport 90 bold",fill="white")
 textFont = int((w1*7/100))
-font_1 = tkfont.Font( family="SuperSport HD", size = textFont)
+font_1 = tkfont.Font(family="SuperSport HD", size = textFont)
 Sum_button_text = canvas.create_text(sumTextwidht_align, sumTextheight_align, text="", font=font_1, fill="white")
 
 threading()
