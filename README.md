@@ -13,5 +13,15 @@
 7- from screeninfo import get_monitors --`sudo apt-get install python3-screeninfo` <br/>
 8- import tkinter.font as tkfont -----------`sudo apt-get install python3-tk`
 
-How to Install Library? <br/>
-![Image]()
+## How to Install Library? <br/>
+![Image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/library%20install.PNG)
+
+
+## Adding Fonts file in the Folder
+### Add .ttf fonts file in the folder of .font
+![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/font_addFolder.PNG)
+![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/font_paste.PNG)
+
+## Set GPIO's.
+`PIN 11` set input pin for Button_A and `PIN 13` set input pin for Button_B.
+
