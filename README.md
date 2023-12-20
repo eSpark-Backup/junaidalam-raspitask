@@ -1,7 +1,6 @@
-# junaidalam-raspitask
+# Super Sport
 
-
-# GUI Using Tkinter on Raspberry Pi-4
+## GUI Using Tkinter on Raspberry Pi-4
 ## Import Libraries:
 ### If using raspberry pi than intall the library by given commands with the libaries.
 1- from tkinter import *     
@@ -24,4 +23,4 @@
 
 ## Set GPIO's.
 `PIN 11` set input pin for Button_A and `PIN 13` set input pin for Button_B.
-
+![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/connection%20Fritzing.png)
