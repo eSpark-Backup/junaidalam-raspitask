@@ -17,7 +17,7 @@
 
 
 ## Adding Fonts file in the Folder
-### Add .ttf fonts file in the folder of .font
+### Add `SuperSport-BlackItalic.ttf` and `SuperSport-BoldItalic.ttf` fonts file in the folder of .font
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/font_addFolder.PNG)
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/font_paste.PNG)
 
