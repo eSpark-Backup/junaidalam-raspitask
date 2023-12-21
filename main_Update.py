@@ -39,12 +39,12 @@ a = inputsHeight_align
 def work():
     while True:
         if gpio_available:
-            Button_A = GPIO.input(PIN1)
-            Button_B = GPIO.input(PIN2)
             GPIO.setwarnings(False) 
             GPIO.setmode(GPIO.BOARD)
             GPIO.setup(PIN1,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
             GPIO.setup(PIN2,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
+            Button_A = GPIO.input(PIN1)
+            Button_B = GPIO.input(PIN2)
         else:
             Button_A = input()
             Button_B = 0
