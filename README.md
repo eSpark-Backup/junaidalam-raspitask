@@ -1,4 +1,4 @@
-# Super Sport
+# Projecy Name: Super Sport
 
 ## GUI Using Tkinter on Raspberry Pi-4
 ## 1- Import Libraries:
@@ -24,4 +24,4 @@
 
 ## 4- 19" and 7" Connection with raspberry pi 4 through HDMI.
 ### Make sure the 19" screen should be connected `with HDMI_0` port and 7" screen connect with `HDMI_1` port of `Raspberry pi 4`. 
-![images](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/fritzing.png)
+![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/fritzing.png)
