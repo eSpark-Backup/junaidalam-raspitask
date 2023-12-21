@@ -21,6 +21,6 @@
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/font_addFolder.PNG)
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/font_paste.PNG)
 
-## Set GPIO's.
+##3- Set GPIO's.
 `PIN 11` set input pin for Button_A and `PIN 13` set input pin for Button_B.
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/connection%20Fritzing.png)
