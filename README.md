@@ -2,7 +2,7 @@
 
 ## GUI Using Tkinter on Raspberry Pi-4
 ## 1- Import Libraries:
-### If using raspberry pi than intall the library by given commands with the libaries.
+### If using raspberry pi then install the library by given commands with the libaries.
 1- from tkinter import *     
 2- import time            <br />
 3- from PIL import Image, ImageTk  ------`sudo apt-get install python3-pil`  `sudo apt-get install python3-pil.imagetk`  
