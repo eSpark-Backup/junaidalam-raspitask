@@ -1,8 +1,7 @@
 # Projecy Name: Super Sport
 
 ## GUI Using Tkinter on Raspberry Pi-4
-## 1- Import Libraries:
-1.0- If using raspberry pi then install the library.  
+## 1- Import Libraries: 
 
 1- `sudo apt-get install python3-pil`  `sudo apt-get install python3-pil.imagetk`  
 2- `sudo apt-get install threading` <br/>
