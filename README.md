@@ -27,5 +27,8 @@
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/fritzing.png)
 
 ## 5- Code Discribtion.
-### Automatically detect if Raspberry Pi-4 is connected then setup the GPIO, Input taking from the GPIO Button_A and Button_B otherwise take input from the computer keyboard "a" for adding values and "b" for the clearing all values. Same for the screen resolution if Raspi 4 connected with both screen so it automatically detect the resolution and detected first resolution for 7" touch screen while second resolution for 19" screen display.
+### Automatically detect GPIO Setup and Screen Resolution.
+Automatically detect if Raspberry Pi-4 is connected then setup the GPIO, Input taking from the GPIO Button_A and Button_B otherwise take input from the computer keyboard "a" for adding values and "b" for the clearing all values. Same for the screen resolution if Raspi 4 connected with both screen so it automatically detect the resolution and detected first resolution for 7" touch screen while second resolution for 19" screen display. 
+
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/assets/146022877/3979d360-82f1-454f-99c9-71bd0b20d404)
+
