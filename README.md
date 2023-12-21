@@ -1,7 +1,7 @@
 # Super Sport
 
 ## GUI Using Tkinter on Raspberry Pi-4
-## Import Libraries:
+## 1- Import Libraries:
 ### If using raspberry pi than intall the library by given commands with the libaries.
 1- from tkinter import *     
 2- import time            <br />
@@ -16,7 +16,7 @@
 ![Image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/library%20install.PNG)
 
 
-## Adding Fonts file in the Folder
+## 2- Adding Fonts file in the Folder
 ### Add `SuperSport-BlackItalic.ttf` and `SuperSport-BoldItalic.ttf` fonts file in the folder of .font
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/font_addFolder.PNG)
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/font_paste.PNG)
