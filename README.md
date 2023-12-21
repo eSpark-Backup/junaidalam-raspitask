@@ -34,7 +34,9 @@ Automatically detect if Raspberry Pi-4 is connected then setup the GPIO, Input t
 ### Add value in Wallet.
 First inserting input value save in wallet and Reference Wallet.
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/assets/146022877/c7690e43-6f75-463d-a18d-f8881f63cf86)
+![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/assets/146022877/5779017e-31ff-4456-9f1b-cce7acd7b2ae)
 
 Second inserting input values save in **list**, and substracte from value of **reference wallet** and the result save in **reference wallet**. 
 
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/assets/146022877/2fabef47-283d-4fbe-824e-e4acf36303d0)
+![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/assets/146022877/2bce2762-3f27-4e14-9bc1-5958b2d06066)
