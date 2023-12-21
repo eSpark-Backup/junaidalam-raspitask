@@ -24,4 +24,4 @@
 
 ## 4- 19" and 7" Connection with raspberry pi 4 through HDMI.
 ### Make sure the 19" screen should be connected `with HDMI_0` port and 7" screen connect with `HDMI_1` port of `Raspberry pi 4`. 
-![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/connection%20Fritzing.png)
+![images](https://github.com/eSpark-Consultants/junaidalam-raspitask/blob/main/extra/fritzing.png)
