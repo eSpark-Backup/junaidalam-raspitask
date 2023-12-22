@@ -22,15 +22,15 @@ try:
     gpio_available = True
 except ImportError:
     gpio_available = False
-if gpio_available:
-    monitors = get_monitors()
-    w1 = monitors[0].width
-    h1 = monitors[0].height
-    w0 = monitors[1].width
-    h0 = monitors[1].height
-else:
-    w0, h0 = 800, 480
-    w1, h1 = 1366, 768
+#if gpio_available:
+#    monitors = get_monitors()
+#    w1 = monitors[0].width
+#    h1 = monitors[0].height
+#    w0 = monitors[1].width
+#    h0 = monitors[1].height
+#else:
+w0, h0 = 800, 480
+w1, h1 = 1280, 720
 
 # height difference between input values
 inputsHeight_align = int((h1*24/100))
@@ -48,7 +48,9 @@ def work():
         else:
             Button_A = input()
             Button_B = 0
-        if (Button_A == 1 or Button_A == "a" ):
+        if (Button_A == 1 or Button_A == "a") and (Button_B == 1 or Button_B == "b"):
+            root.destroy()
+        elif (Button_A == 1 or Button_A == "a" ):
                 global flag,i,a,increment_counter
                 global wallet,wallet_text
                 Buzz_play()
@@ -134,20 +136,23 @@ def click(event):
 
         
 def Clearing():
-    global increment_counter, image_array,text_array, a, i,wallet,flag,button_text
-    for x in range(len(button_text)):
-        canvas.delete(button_text[x])
-        canvas.delete(text_array[x])
-    text_array=[]
-    button_text =[]
-    canvas.itemconfigure(Sum_button_text, text ="  ")
-    canvas.itemconfigure(wallet_text, text = "")
-    canvas.itemconfigure(button_text, text = "")
-    increment_counter = 0
-    i = 0
-    flag = 0
-    wallet= 0
-    a = inputsHeight_align
+    try:
+        global increment_counter, image_array,text_array, a, i,wallet,flag,button_text
+        for x in range(len(button_text)):
+            canvas.delete(button_text[x])
+            canvas.delete(text_array[x])
+        text_array=[]
+        button_text =[]
+        canvas.itemconfigure(Sum_button_text, text ="                           ")
+        canvas.itemconfigure(wallet_text, text = "")
+        canvas.itemconfigure(button_text, text = "")
+        increment_counter = 0
+        i = 0
+        flag = 0
+        wallet= 0
+        a = inputsHeight_align
+    except Exception as e:
+        print(e)
 
 ####### GUI OF 1st Screen ##############
 # Set up window for display on HDMI 0
@@ -155,18 +160,19 @@ def Clearing():
 root = Tk()
 # Set up window for display on HDMI 1
 Window_1 = Toplevel()
-Window_1.geometry(f"{w0}x{h0}+{w1}+0")
+Window_1.geometry(f"{w0}x{h0}+{w1}+196")
 Window_1.title("Raspberry Pi GUI")
-# Window_1.attributes('-fullscreen',True)
-# Window_1.overrideredirect(1)
+Window_1.attributes('-fullscreen',1)
+Window_1.overrideredirect(1)
 
 ####### GUI OF 2nd Screen ##############
 # Set up window for display on HDMI 0
 Window_2 = Toplevel()
 Window_2.geometry(f"{w1}x{h1}+0+0")
 Window_2.title("Display Screen")
-# Window_2.attributes('-fullscreen',True)
-# Window_2.overrideredirect(0)
+Window_2.attributes('-fullscreen',True)
+
+Window_2.overrideredirect(1)
 
 Keypad_Input = StringVar()
 Keypad_Input.set("")
