@@ -61,6 +61,7 @@ write these command on pi terminal, a script will open.
 
     mkdir /home/pi/.config/autostart
     nano /home/pi/.config/autostart/clock.desktop
+![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/assets/146022877/a782d52a-ff63-4805-bb37-49991e756813)
 
 ## **Step:- 2**
 Copy this bash script and paste on the empty script of your terminal, make sure change the path to python program path.
@@ -69,10 +70,14 @@ Copy this bash script and paste on the empty script of your terminal, make sure 
     Type=Application
     Name=Clock
     Exec=/usr/bin/python3 /home/pi/clock.py
+![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/assets/146022877/4263a6f0-f3cb-4b42-abee-4cd90485d080)
 
 ## **Step:- 3**
 Reboot the pi by using using this command in terminal.
 
      sudo reboot
+
+
+# *Hope you enjoy the Project*
 
 
