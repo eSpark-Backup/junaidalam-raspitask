@@ -48,8 +48,8 @@ When the program run two window will appears, Inputs taken from the keypad Scree
  After inserting the values, When Button B is pressed all the values clear and empty. And program again ready for re-inserting the values.
 
 ## 8.0 Folders Required:
-Place these folder on the same place. 
-**`Main Code`** **`Images`** **`Fonts`** **`Buzz Sound`**
+Place these folders and main code on the same folder. 
+ **`Images`** **`Fonts`** **`Buzz Sound`**
 
 
 
