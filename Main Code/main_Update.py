@@ -140,7 +140,7 @@ def Clearing():
         canvas.delete(text_array[x])
     text_array=[]
     button_text =[]
-    canvas.itemconfigure(Sum_button_text, text ="                           ")
+    canvas.itemconfigure(Sum_button_text, text ="  ")
     canvas.itemconfigure(wallet_text, text = "")
     canvas.itemconfigure(button_text, text = "")
     increment_counter = 0
