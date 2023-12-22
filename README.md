@@ -57,14 +57,15 @@ Place these folders and main code on the same folder.
 ## 9.0 : Bash Script for Pi Startup :
 When the Raspberry pi start the tkinter program run automatically using bash script, follwing procedure are given bellow.
 ### **Step:- 1**
-write these command on pi terminal, a script will open.
+Write these command on pi terminal and press `Enter`, a empty bash script will open.
 
     mkdir /home/pi/.config/autostart
     nano /home/pi/.config/autostart/clock.desktop
-![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/assets/146022877/a782d52a-ff63-4805-bb37-49991e756813)
+    
+![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/assets/146022877/23fa2804-a3c1-4ca4-bcbd-f7f76c8f1c6b)
 
 ## **Step:- 2**
-Copy this bash script and paste on the empty script of your terminal, make sure change the path to python program path.
+Copy this bash script and paste on the empty script of your terminal, make sure change the path to python program path. and press `CTRL` + `X` for save and press `Enter`
 
     [Desktop Entry]
     Type=Application
@@ -73,11 +74,10 @@ Copy this bash script and paste on the empty script of your terminal, make sure 
 ![image](https://github.com/eSpark-Consultants/junaidalam-raspitask/assets/146022877/4263a6f0-f3cb-4b42-abee-4cd90485d080)
 
 ## **Step:- 3**
-Reboot the pi by using using this command in terminal.
+Reboot the pi by using using this command in terminal. After reboot the program run automatically.
 
      sudo reboot
 
-
-# *Hope you enjoy the Project*
+--------------------------------------*Hope you enjoy the Project*---------------------------------------------------------
 
 
