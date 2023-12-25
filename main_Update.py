@@ -30,10 +30,10 @@ if gpio_available:
    h0 = monitors[1].height
 else:
     w0, h0 = 800, 480
-w1, h1 = 1280, 720
+    w1, h1 = 1280, 720
 
 # height difference between input values
-inputsHeight_align = int((h1*24/100))
+inputsHeight_align = int((h1*24.7/100))
 a = inputsHeight_align
 
 def work():
@@ -125,7 +125,7 @@ def click(event):
     text = event.widget.cget("text")
     if text == "Clear":
         Keypad_Input.set("")
-        canvas_1.itemconfigure(screen, text ="")
+        canvas_1.itemconfigure(screen, text ="R")
     #  for backspace button
     elif text == ".":
         Back_space = Keypad_Input.get()
@@ -182,10 +182,10 @@ canvas_1.pack(anchor="nw")
 calculator_Background_image = ImageTk.PhotoImage(Image.open(image_path + "/Images/calculator_fram.jpg").resize((w0,h0)))
 canvas_1.create_image(0,0,image=calculator_Background_image, anchor="nw")
 calScreen_width = int((w0*50/100))
-calScreen_height= int((h0*22/100))
+calScreen_height= int((h0*22.5/100))
 Screen_text_size = int((w0*3/100))
 font_4 = tkfont.Font( family="SuperSport Extra Black", size = Screen_text_size)
-screen = canvas_1.create_text(calScreen_width, calScreen_height, text="", font = font_4 ,fill="white",state="normal")
+screen = canvas_1.create_text(calScreen_width, calScreen_height, text="R", font = font_4 ,fill="white",state="normal")
 # resize image automatically
 calWidth_align = int((w0*11/100))
 calheight_align = int((h0*13/100))
@@ -205,7 +205,7 @@ calY_4_align = int((h0*71/100))
 cal_font_size = int((w0*3/100))
 font_5 = tkfont.Font(family="SuperSport Extra Black", size = cal_font_size)
 # button_1
-btn = Button(canvas_1,image = click_btn, text='1', relief="flat", highlightthickness=0, borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
+btn = Button(canvas_1,image = click_btn, text='1', relief="flat", highlightthickness=0, borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E", compound="center", activebackground="#0C1B6E")
 btn.place(x=calX_1_align, y=calY_1_align)
 btn.place(x=calX_1_align, y=calY_1_align)
 btn.bind("<Button-1>", click)
