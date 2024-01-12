@@ -30,7 +30,7 @@ if gpio_available:
    h0 = monitors[1].height
 else:
     w0, h0 = 800, 480
-w1, h1 = 1280, 720
+    w1, h1 = 1280, 720
 
 # height difference between input values
 inputsHeight_align = int((h1*24/100))
@@ -59,23 +59,10 @@ def work():
                         wallet = Keypad_Input.get()
                         if not wallet:
                             wallet = "0"
-                        walWidht_size = int((w1*13/100))
-                        walHeight_size = int((h1*9/100))
-                    
-                        wallet_image =  ImageTk.PhotoImage(Image.open(image_path +"/Images/wallet_button.png").resize((walWidht_size,walHeight_size)))
-                        walWidth_align = int((w1*37/100))
-                        walheight_align= int((h1*14/100))
-                        walTextExtra_align= int ((w1*0.5/100))
-                        bttn_1 = canvas.create_image(walWidth_align, walheight_align, image = wallet_image)
-                        canvas.tag_bind(bttn_1) 
-                        textFontWallet =int((w1*1.5/100))
-                        font_2 = tkfont.Font(family="SuperSport Extra Black", size = textFontWallet)
-                        wallet_text = canvas.create_text(walWidth_align + walTextExtra_align, walheight_align, text=" " ,font=font_2,fill="white")
-                        canvas.itemconfigure(wallet_text, text = "R" + str(wallet))
                         canvas.itemconfigure(Sum_button_text, text = "R" + str(wallet))
                         flag = 1
                         Keypad_Input.set("")
-                        canvas_1.itemconfigure(screen, text = Keypad_Input.get())
+                        canvas_1.itemconfigure(screen, text = "R")
                         time.sleep(1)
                         break
                     elif ((Button_A == 1 or Button_A == "a") and flag!= 0):
@@ -84,18 +71,18 @@ def work():
                         if not string_value:
                             string_value = '0'
                         button_text.append(string_value)
-                        InputWeidthText_align = int(w1*16/100)
-                        inputs_textFont = int((w1*2.34/100))
+                        InputWeidthText_align = int(w1*14.5/100)
+                        inputs_textFont = int((w1*2.2/100))
                         font_3 = tkfont.Font( family="SuperSport HD", size = inputs_textFont)
                         text_array.append(canvas.create_text(InputWeidthText_align, a, text="R" + button_text[increment_counter], font=font_3 ,fill="white"))
-                        Diffence_of_inputs_height = int((h1*17.129/100))
+                        Diffence_of_inputs_height = int((h1*14.5/100))
                         # a = a + 185
                         a = a + Diffence_of_inputs_height
                         wallet = int(wallet) - int(button_text[increment_counter])
-                        canvas.itemconfigure(Sum_button_text, text = "R" + str(wallet))
+                        canvas.itemconfigure(Sum_button_text, text ="R" + str(wallet))
                         increment_counter += 1
                         Keypad_Input.set("")
-                        canvas_1.itemconfigure(screen, text = Keypad_Input.get())
+                        canvas_1.itemconfigure(screen, text = "R")
                         time.sleep(1)
                         break
 
@@ -122,10 +109,11 @@ def threading():
 
 # Function to handle button clicks
 def click(event):
+    global r_counter
     text = event.widget.cget("text")
     if text == "Clear":
         Keypad_Input.set("")
-        canvas_1.itemconfigure(screen, text ="")
+        canvas_1.itemconfigure(screen, text ="R")
     #  for backspace button
     elif text == ".":
         Back_space = Keypad_Input.get()
@@ -134,8 +122,8 @@ def click(event):
     else:
         keypad_Numbers = (Keypad_Input.get() + text)
         Keypad_Input.set(keypad_Numbers)
-        canvas_1.itemconfigure(screen, text ="R"+ keypad_Numbers)
-
+        canvas_1.itemconfigure(screen, text = "R" + keypad_Numbers)
+        
         
 def Clearing():
     global increment_counter, image_array,text_array, a, i,wallet,flag,button_text
@@ -145,7 +133,6 @@ def Clearing():
     text_array=[]
     button_text =[]
     canvas.itemconfigure(Sum_button_text, text ="")
-    canvas.itemconfigure(wallet_text, text = "")
     canvas.itemconfigure(button_text, text = "")
     increment_counter = 0
     i = 0
@@ -185,10 +172,10 @@ calScreen_width = int((w0*50/100))
 calScreen_height= int((h0*22/100))
 Screen_text_size = int((w0*3/100))
 font_4 = tkfont.Font( family="SuperSport Extra Black", size = Screen_text_size)
-screen = canvas_1.create_text(calScreen_width, calScreen_height, text="", font = font_4 ,fill="white",state="normal")
+screen = canvas_1.create_text(calScreen_width, calScreen_height, text="R", font = font_4 ,fill="white",state="normal")
 # resize image automatically
-calWidth_align = int((w0*11/100))
-calheight_align = int((h0*13/100))
+calWidth_align = int((w0*10/100))
+calheight_align = int((h0*12/100))
 
 click_btn= ImageTk.PhotoImage(Image.open(image_path + "/Images/blue_button.png").resize((calWidth_align, calheight_align)))
 # bg="#121FA2"
@@ -202,11 +189,10 @@ calY_3_align = int((h0*58/100))
 calY_4_align = int((h0*71/100))
 
 #Automatically change screen size 
-cal_font_size = int((w0*3/100))
+cal_font_size = int((w0*2.7/100))
 font_5 = tkfont.Font(family="SuperSport Extra Black", size = cal_font_size)
 # button_1
-btn = Button(canvas_1,image = click_btn, text='1', relief="flat", highlightthickness=0, borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
-btn.place(x=calX_1_align, y=calY_1_align)
+btn = Button(canvas_1,image = click_btn, text='1', relief="flat", highlightthickness=0, borderwidth= 0, font=font_5, fg="white", bg="#0C1B6E", compound="center",activebackground="#0C1B6E")
 btn.place(x=calX_1_align, y=calY_1_align)
 btn.bind("<Button-1>", click)
 #button_2
@@ -261,11 +247,11 @@ btn.place(x=calX_2_align, y=calY_4_align)
 btn.bind("<Button-1>", click)
 
 #button_backspace
-calWidthImage_align = int((w0*9/100))
-calheightImage_align = int((h0*12.5/100))
+calWidthImage_align = int((w0*8.5/100))
+calheightImage_align = int((h0*11.5/100))
 click_btn_1= ImageTk.PhotoImage(Image.open(image_path + "/Images/backspace.png").resize((calWidthImage_align ,calheightImage_align)))
 btn = Button(canvas_1,image = click_btn_1, text='.', relief="flat", highlightthickness=0,  borderwidth= 0, font="lucida 7 bold", fg="#0C1B6E", bg="#0C1B6E",compound="center",activebackground="#0C1B6E")
-calX_4_align = int(w0*56.5/100)
+calX_4_align = int(w0*56/100)
 calY_4_align_bacspace = int(h0*71.5/100)
 btn.place(x=calX_4_align, y=calY_4_align_bacspace)
 btn.bind("<Button-1>", click)
@@ -273,7 +259,7 @@ btn.bind("<Button-1>", click)
 ####### GUI OF 2nd Screen ##############
 
 # In the canva section of Window_2
-Background_image = ImageTk.PhotoImage(Image.open(image_path + "/Images/new_display2.jpg").resize((w1,h1)))
+Background_image = ImageTk.PhotoImage(Image.open(image_path + "/Images/screen_2.png").resize((w1,h1)))
 canvas = Canvas(Window_2,width=w1 , height= h1)
 canvas.pack(anchor="nw")
 
